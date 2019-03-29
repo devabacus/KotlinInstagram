@@ -1,16 +1,16 @@
 package com.example.homeactivity
 
+import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 
-class HomeActivity : BaseActivity(0) {
+class EditProfileActivity : AppCompatActivity() {
 
-    private val TAG = "HomeActivity"
-
+    private val TAG = "EditProfileActivity"
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        setupBottomNavigation()
+        setContentView(R.layout.activity_edit_profile)
         Log.d(TAG, "onCreate: ")
     }
 }
