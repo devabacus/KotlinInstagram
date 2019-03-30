@@ -10,28 +10,20 @@
 
     <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:background="@color/whiteish"
+            style="@style/toolbar"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:elevation="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
+            app:layout_constraintStart_toStartOf="parent">
         <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
                                                      android:layout_height="wrap_content">
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/black"
-                        app:layout_constraintTop_toTopOf="parent"
+                    style="@style/toolbar_title"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:textSize="19sp"
                     android:text="stas.frol"/>
 
             <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
+                    style="@style/toolbar_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/ic_more"
