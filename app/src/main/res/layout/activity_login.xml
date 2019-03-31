@@ -7,4 +7,63 @@
         android:layout_height="match_parent"
         tools:context=".LoginActivity">
 
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="80dp"
+               android:src="@drawable/instagram"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_marginStart="50dp"
+               android:layout_marginEnd="50dp"
+               android:layout_marginTop="50dp"
+               android:id="@+id/img_instagram"
+    />
+
+
+    <EditText android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/et_email"
+              android:layout_marginStart="20dp"
+              android:layout_marginEnd="20dp"
+              android:layout_marginTop="20dp"
+              app:layout_constraintTop_toBottomOf="@id/img_instagram"
+              android:hint="email"
+              android:inputType="textEmailAddress"
+              android:background="@drawable/login_input_bg"
+              android:padding="10dp"
+    />
+
+    <EditText android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/password_input"
+              android:layout_marginStart="20dp"
+              android:layout_marginEnd="20dp"
+              android:layout_marginTop="20dp"
+              app:layout_constraintTop_toBottomOf="@id/et_email"
+              android:hint="password"
+              android:inputType="textPassword"
+              android:background="@drawable/login_input_bg"
+              android:padding="10dp"
+    />
+
+    <Button
+            android:id="@+id/btn_login"
+            app:layout_constraintTop_toBottomOf="@id/password_input"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_login_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:text="Don't have an acount? Sign in"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:background="@drawable/top_border_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"/>
+
 </android.support.constraint.ConstraintLayout>
