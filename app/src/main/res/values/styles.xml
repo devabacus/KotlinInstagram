@@ -80,8 +80,12 @@
 
     <style name="login_btn" parent="login_input">
         <item name="android:background">@drawable/btn_login_bg</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/btn_login_color</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@animator/btn_login_animator</item>
+
     </style>
+
+
 
 </resources>

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class HomeActivity : BaseActivity(0) {
 
@@ -15,8 +17,15 @@ class HomeActivity : BaseActivity(0) {
         setContentView(R.layout.activity_home)
         setupBottomNavigation()
         Log.d(TAG, "onCreate: ")
+
         mAuth = FirebaseAuth.getInstance()
-        mAuth.signOut()
+
+        sign_out.setOnClickListener{
+            mAuth.signOut()
+        }
+
+        mAuth.addAuthStateListener {signIn()}
+
 //        mAuth.signInWithEmailAndPassword("scale-driver@yandex.ru", "123qwe")
 //            .addOnCompleteListener {
 //                if (it.isSuccessful) {
@@ -28,11 +37,15 @@ class HomeActivity : BaseActivity(0) {
 //            }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun signIn() {
         if (mAuth.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        signIn()
     }
 }
