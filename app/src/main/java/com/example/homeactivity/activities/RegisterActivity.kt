@@ -1,6 +1,7 @@
 package com.example.homeactivity.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -9,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.homeactivity.R
+import com.example.homeactivity.models.User
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_register_email.*
 import kotlinx.android.synthetic.main.fragment_register_namepass.*
 
@@ -55,8 +58,19 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
                 mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            mDatabase.child("users").child(it.result!!.user.uid)
+                            val user = makeUser(fullName, email)
+                            val reference = mDatabase.child("users").child(it.result!!.user.uid)
+                            reference.setValue(user).addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    startHomeActivity()
+                                } else {
+                                    unknownRegisterErrofr(it)
+                                }
+                            }
+                        } else {
+                            unknownRegisterErrofr(it)
                         }
+
                     }
             } else {
                 Log.e(TAG, "onRegister: email is null")
@@ -67,6 +81,25 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
             showToast("Please type full name and pass")
         }
     }
+
+    private fun unknownRegisterErrofr(it: Task<*>) {
+        Log.e(TAG, "Failed to create user profile", it.exception)
+        showToast("something wrong guy!")
+    }
+
+    private fun startHomeActivity() {
+        startActivity(Intent(this, HomeActivity::class.java))
+        finish()
+    }
+
+    private fun makeUser(fullName: String, email: String): User {
+        val username = makeUsername(fullName)
+        return User(name = fullName, username = username, email = email)
+    }
+
+    private fun makeUsername(fullName: String) =
+        fullName.toLowerCase().replace(" ", ".")
+
 }
 
 class EmailFragment : Fragment() {
@@ -85,8 +118,8 @@ class EmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btn_next.setOnClickListener {
-            val email = et_email_input.text.toString()
-            mListener.onNext(email)
+                val email = et_login_email.text.toString()
+                mListener.onNext(email)
         }
     }
 

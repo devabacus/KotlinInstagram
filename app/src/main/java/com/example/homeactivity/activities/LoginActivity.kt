@@ -7,10 +7,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.example.homeactivity.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_register_namepass.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
@@ -23,28 +23,37 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
         setContentView(R.layout.activity_login)
         Log.d(TAG, "onCreate: ")
         btn_login.isEnabled = false
-        et_email.addTextChangedListener(this)
-        et_password.addTextChangedListener(this)
+        et_email_login.addTextChangedListener(this)
+        et_password_login.addTextChangedListener(this)
         KeyboardVisibilityEvent.setEventListener(this, this)
         btn_login.setOnClickListener(this)
         mAuth = FirebaseAuth.getInstance()
 
+        tv_create_account.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View) {
-        val email = et_email.text.toString()
-        val password = et_password.text.toString()
-        if (checkCredentials()) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{
-                if (it.isSuccessful) {
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
+
+        when (v.id) {
+            R.id.btn_login -> {
+
+                val email = et_email_login.text.toString()
+                val password = et_password.text.toString()
+                if (checkCredentials()) {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            startActivity(Intent(this, HomeActivity::class.java))
+                            finish()
+                        } else {
+                            showToast("Неправильные логин или пароль")
+                        }
+                    }
                 } else {
-                    showToast( "Неправильные логин или пароль")
+                    showToast("Необходимо заполнить поля")
                 }
             }
-        } else {
-            showToast("Необходимо заполнить поля")
+            R.id.tv_create_account -> startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 
@@ -66,7 +75,7 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-    fun checkCredentials() = et_email.text.toString().isNotEmpty() &&
-                et_password.text.toString().isNotEmpty()
+    fun checkCredentials() = et_email_login.text.toString().isNotEmpty() &&
+            et_password_login.text.toString().isNotEmpty()
 
 }
