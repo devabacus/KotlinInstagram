@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_register_email.*
 import kotlinx.android.synthetic.main.fragment_register_namepass.*
 
@@ -42,9 +41,20 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
     override fun onNext(email: String) {
         if (email.isNotEmpty()) {
             mEmail = email
-            supportFragmentManager.beginTransaction().replace(R.id.reg_frame_layout, NamePassFragment())
-                .addToBackStack(null)
-                .commit()
+            mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener{
+                if (it.isSuccessful) {
+                    if (it.result!!.signInMethods?.isEmpty() != false) {
+                        supportFragmentManager.beginTransaction().replace(R.id.reg_frame_layout, NamePassFragment())
+                            .addToBackStack(null)
+                            .commit()
+                    } else {
+                        showToast("This email already exist")
+                    }
+
+                } else {
+                    showToast(it.exception!!.message!!)
+                }
+            }
 
         } else {
             showToast("Please enter email")
@@ -64,11 +74,11 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
                                 if (it.isSuccessful) {
                                     startHomeActivity()
                                 } else {
-                                    unknownRegisterErrofr(it)
+                                    unknownRegisterError(it)
                                 }
                             }
                         } else {
-                            unknownRegisterErrofr(it)
+                            unknownRegisterError(it)
                         }
 
                     }
@@ -82,7 +92,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
         }
     }
 
-    private fun unknownRegisterErrofr(it: Task<*>) {
+    private fun unknownRegisterError(it: Task<*>) {
         Log.e(TAG, "Failed to create user profile", it.exception)
         showToast("something wrong guy!")
     }
@@ -103,14 +113,16 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFr
 }
 
 class EmailFragment : Fragment() {
-    private lateinit var mListener:Listener
+    private lateinit var mListener: Listener
 
     interface Listener {
         fun onNext(email: String)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         return inflater.inflate(R.layout.fragment_register_email, container, false)
 
@@ -118,8 +130,8 @@ class EmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btn_next.setOnClickListener {
-                val email = et_login_email.text.toString()
-                mListener.onNext(email)
+            val email = et_login_email.text.toString()
+            mListener.onNext(email)
         }
     }
 
@@ -131,14 +143,16 @@ class EmailFragment : Fragment() {
 
 class NamePassFragment : Fragment() {
 
-    private lateinit var mListener:Listener
+    private lateinit var mListener: Listener
 
     interface Listener {
         fun onRegister(fullName: String, password: String)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_register_namepass, container, false)
     }
 
