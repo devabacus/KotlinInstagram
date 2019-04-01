@@ -38,6 +38,11 @@ class EditProfileActivity : AppCompatActivity() {
                 if (user != null) {
                     et_name_input.setText(user.name, TextView.BufferType.EDITABLE)
                     et_username_input.setText(user.username, TextView.BufferType.EDITABLE)
+                    et_website_Input.setText(user.website, TextView.BufferType.EDITABLE)
+                    et_bio_Input.setText(user.bio, TextView.BufferType.EDITABLE)
+                    et_email_input.setText(user.email, TextView.BufferType.EDITABLE)
+                    et_phone_input.setText(user.phone.toString(), TextView.BufferType.EDITABLE)
+
                 } else {
                     Log.d(TAG, "onDataChange: user is null")
                 }
