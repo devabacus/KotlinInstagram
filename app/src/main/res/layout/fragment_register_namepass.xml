@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/title"
+              android:text="Enter full name and password"
+              android:textSize="17sp"
+              android:textColor="@color/black"
+              android:textStyle="bold"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_margin="100dp"
+
+    />
+
+    <EditText
+            android:id="@+id/et_full_name_input"
+            style="@style/login_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:inputType="textPersonName"
+        android:hint="Full Name"
+    />
+
+    <EditText
+            android:id="@+id/et_password"
+            style="@style/login_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_full_name_input"
+            android:inputType="textPassword"
+            android:hint="Password"
+    />
+
+    <Button
+            android:id="@+id/btn_register"
+            android:text="Register"
+            app:layout_constraintTop_toBottomOf="@id/et_password"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/login_btn"
+            />
+
+</android.support.constraint.ConstraintLayout>

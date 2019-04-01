@@ -1,11 +1,11 @@
-package com.example.homeactivity
+package com.example.homeactivity.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
-import com.example.homeactivity.Models.User
+import com.example.homeactivity.R
+import com.example.homeactivity.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_edit_profile.*
 class EditProfileActivity : AppCompatActivity() {
 
     private val TAG = "EditProfileActivity"
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -26,15 +26,10 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         val auth = FirebaseAuth.getInstance()
-        val curUser = auth.currentUser
         val database = FirebaseDatabase.getInstance().reference
-        database.child("users").child(curUser!!.uid).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, "onCancelled: ",error.toException())
-                }
-
-            override fun onDataChange(data: DataSnapshot) {
-                val user = data.getValue(User::class.java)
+        database.child("users").child(auth.currentUser!!.uid).
+            addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                val user = it.getValue(User::class.java)
                 if (user != null) {
                     et_name_input.setText(user.name, TextView.BufferType.EDITABLE)
                     et_username_input.setText(user.username, TextView.BufferType.EDITABLE)
@@ -46,13 +41,9 @@ class EditProfileActivity : AppCompatActivity() {
                 } else {
                     Log.d(TAG, "onDataChange: user is null")
                 }
-            }
-
-
-        })
-
-
+            })
     }
+
 
 
 

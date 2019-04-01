@@ -1,11 +1,11 @@
-package com.example.homeactivity
+package com.example.homeactivity.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.example.homeactivity.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_login.*
 
 class HomeActivity : BaseActivity(0) {
 
@@ -48,4 +48,6 @@ class HomeActivity : BaseActivity(0) {
         super.onStart()
         signIn()
     }
+
+
 }

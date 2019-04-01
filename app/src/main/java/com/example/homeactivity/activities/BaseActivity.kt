@@ -1,8 +1,9 @@
-package com.example.homeactivity
+package com.example.homeactivity.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.example.homeactivity.R
 import kotlinx.android.synthetic.main.bottom_nav_view.*
 
 abstract class BaseActivity(val navNumber:Int) : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.homeactivity
+package com.example.homeactivity.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.homeactivity.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -39,11 +40,11 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
                     startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this, "Неправильные логин или пароль", Toast.LENGTH_SHORT).show()
+                    showToast( "Неправильные логин или пароль")
                 }
             }
         } else {
-            Toast.makeText(this, "Необходимо заполнить поля", Toast.LENGTH_SHORT).show()
+            showToast("Необходимо заполнить поля")
         }
     }
 

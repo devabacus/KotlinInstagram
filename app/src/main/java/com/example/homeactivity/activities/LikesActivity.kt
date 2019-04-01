@@ -1,7 +1,8 @@
-package com.example.homeactivity
+package com.example.homeactivity.activities
 
 import android.os.Bundle
 import android.util.Log
+import com.example.homeactivity.R
 
 class LikesActivity : BaseActivity(3) {
     private val TAG = "LikesActivity"
