@@ -15,17 +15,17 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.fragment_register_email.*
 import kotlinx.android.synthetic.main.fragment_register_namepass.*
 
 class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, NamePassFragment.Listener {
-
     private val TAG = "RegisterActivity"
 
     private var mEmail: String? = null
+
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDatabase: DatabaseReference
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -130,6 +130,8 @@ class EmailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btn_next.setOnClickListener {
+            CoordinateBtnAndInputs(btn_next, et_login_email)
+
             val email = et_login_email.text.toString()
             mListener.onNext(email)
         }
@@ -158,6 +160,7 @@ class NamePassFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btn_register.setOnClickListener {
+            CoordinateBtnAndInputs(btn_register, et_full_name_input, et_password)
             val fullName = et_full_name_input.text.toString()
             val password = et_password.text.toString()
             mListener.onRegister(fullName, password)
