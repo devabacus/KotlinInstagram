@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, Text
             R.id.btn_login -> {
 
                 val email = et_email_login.text.toString()
-                val password = et_password.text.toString()
+                val password = et_password_login.text.toString()
                 if (checkCredentials()) {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                         if (it.isSuccessful) {
