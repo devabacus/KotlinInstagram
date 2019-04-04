@@ -104,12 +104,12 @@
                 android:id="@+id/tv_website_label"
                 style="@style/tv_profile"
                 android:text="Website"
-                android:labelFor="@id/et_website_Input"
+                android:labelFor="@id/et_website_input"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_username_input"
         />
         <EditText
-                android:id="@+id/et_website_Input"
+                android:id="@+id/et_website_input"
                 style="@style/et_profile"
                 android:layout_width="match_parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,12 +120,12 @@
                 android:id="@+id/tv_bio_input"
                 style="@style/tv_profile"
                 android:text="Bio"
-                android:labelFor="@id/et_bio_Input"
+                android:labelFor="@id/et_bio_input"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_website_Input"
+                app:layout_constraintTop_toBottomOf="@id/et_website_input"
         />
         <EditText
-                android:id="@+id/et_bio_Input"
+                android:id="@+id/et_bio_input"
                 style="@style/et_profile"
                 android:inputType="text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -136,9 +136,9 @@
                 android:id="@+id/tv_private_info"
                 style="@style/tv_profile"
                 android:text="Private_information"
-                android:labelFor="@id/et_bio_Input"
+                android:labelFor="@id/et_bio_input"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/et_bio_Input"
+                app:layout_constraintTop_toBottomOf="@id/et_bio_input"
         />
 
         <TextView
